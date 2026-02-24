@@ -115,7 +115,13 @@ async fn delete_icon(app: tauri::AppHandle, icon_id: String) -> Result<(), Strin
 async fn import_folder(app: tauri::AppHandle, parent_id: Option<String>) -> Result<Collection, String> {
     use tauri_plugin_dialog::DialogExt;
 
-    let folder = app.dialog().file().blocking_pick_folder();
+    // Use spawn_blocking to avoid deadlocking the async runtime
+    let app_clone = app.clone();
+    let folder = tauri::async_runtime::spawn_blocking(move || {
+        app_clone.dialog().file().blocking_pick_folder()
+    })
+    .await
+    .map_err(|e| format!("Dialog thread error: {}", e))?;
 
     let folder_path = folder.ok_or("No folder selected")?;
     let folder_path = folder_path.as_path().ok_or("Invalid path")?;

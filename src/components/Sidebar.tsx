@@ -216,7 +216,9 @@ export default function Sidebar({
                 }
               }}
               onBlur={() => {
-                if (!newName.trim()) {
+                if (newName.trim()) {
+                  handleCreate();
+                } else {
                   setIsCreating(false);
                   setCreatingParentId(undefined);
                 }
@@ -328,7 +330,11 @@ export default function Sidebar({
                 if (e.key === "Escape") setIsCreating(false);
               }}
               onBlur={() => {
-                if (!newName.trim()) setIsCreating(false);
+                if (newName.trim()) {
+                  handleCreate();
+                } else {
+                  setIsCreating(false);
+                }
               }}
               placeholder="Collection name..."
               className="w-full bg-white border border-[var(--accent)] rounded px-2 py-1 text-[13px] focus:outline-none"

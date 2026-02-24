@@ -14,7 +14,7 @@ export default function IconCard({
   isSelected,
   onSelect,
   onDoubleClick,
-  tintColor,
+  tintColor: _tintColor,
   iconSize,
 }: IconCardProps) {
   const handleDragStart = (e: React.DragEvent) => {
@@ -36,13 +36,7 @@ export default function IconCard({
     setTimeout(() => document.body.removeChild(div), 0);
   };
 
-  const tintStyle = tintColor
-    ? { filter: `brightness(0) saturate(100%)`, color: tintColor }
-    : {};
-
-  const svgContainerStyle = tintColor
-    ? `[&>svg]:w-full [&>svg]:h-full [&>svg]:max-w-[${iconSize}px] [&>svg]:max-h-[${iconSize}px] [&>svg_path]:fill-[${tintColor}] [&>svg]:text-[${tintColor}]`
-    : "[&>svg]:w-full [&>svg]:h-full";
+  const svgContainerStyle = "[&>svg]:w-full [&>svg]:h-full";
 
   return (
     <div
@@ -62,7 +56,6 @@ export default function IconCard({
         style={{
           width: iconSize,
           height: iconSize,
-          ...tintStyle,
         }}
         dangerouslySetInnerHTML={{ __html: icon.svg_content }}
       />

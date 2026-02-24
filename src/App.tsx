@@ -247,7 +247,7 @@ function App() {
   // ── Render ─────────────────────────────────────────────────
 
   return (
-    <div className="flex h-screen bg-[var(--bg-primary)]">
+    <div className="flex h-screen bg-[var(--bg-primary)] p-2">
       {/* Left Sidebar */}
       <Sidebar
         collections={collections}

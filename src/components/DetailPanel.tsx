@@ -16,7 +16,7 @@ export default function DetailPanel({
   onToggleFavorite,
   onUpdateTags,
   onDeleteIcon,
-  tintColor,
+  tintColor: _tintColor,
 }: DetailPanelProps) {
   const [tagInput, setTagInput] = useState("");
   const [copied, setCopied] = useState(false);
@@ -82,10 +82,6 @@ export default function DetailPanel({
     return "—";
   }
 
-  const tintStyle = tintColor
-    ? { filter: `brightness(0) saturate(100%)`, color: tintColor }
-    : {};
-
   return (
     <aside className="w-72 bg-[var(--bg-secondary)] border-l border-[var(--border)] flex flex-col overflow-hidden">
       {/* Header */}
@@ -106,7 +102,6 @@ export default function DetailPanel({
         <div className="p-6 flex items-center justify-center bg-white m-4 rounded-xl border border-[var(--border)]">
           <div
             className="[&>svg]:w-24 [&>svg]:h-24"
-            style={tintStyle}
             dangerouslySetInnerHTML={{ __html: icon.svg_content }}
           />
         </div>
